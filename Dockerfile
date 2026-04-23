@@ -36,4 +36,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
   CMD wget -qO- http://localhost:3000/api/health || exit 1
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["sh", "-c", "chown -R node:node /app/data /app/uploads 2>/dev/null || true; exec su-exec node node --import tsx src/index.ts"]
+CMD ["sh", "-c", "mkdir -p /app/data/uploads/files /app/data/uploads/covers /app/data/uploads/avatars /app/data/uploads/photos && rm -rf /app/uploads && ln -sfn /app/data/uploads /app/uploads && chown -R node:node /app/data 2>/dev/null || true; exec su-exec node node --import tsx src/index.ts"]
